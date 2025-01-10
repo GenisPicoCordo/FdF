@@ -12,7 +12,7 @@
 
 NAME := fdf
 CC := cc
-CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast
+CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g
 RM := rm -f
 
 # Directorios de librerías y includes
@@ -76,4 +76,3 @@ fclean: clean
 re: fclean all
 	
 .PHONY: all clean fclean re libmlx libft
-
