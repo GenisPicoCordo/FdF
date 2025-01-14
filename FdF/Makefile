@@ -29,7 +29,8 @@ SRC := src/main.c \
 			src/projection.c \
 			src/map_utils.c \
 			src/utils.c \
-			src/draw.c
+			src/draw.c \
+			src/main_utils.c
 
 
 OBJS := $(SRC:.c=.o)
