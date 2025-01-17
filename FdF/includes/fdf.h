@@ -14,16 +14,9 @@
 # define FDF_H
 
 # include "MLX42/MLX42.h"
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdlib.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <math.h>
-# include <unistd.h>
 # include "../libft/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
+# include <math.h>
+# include <stdlib.h>
 
 // Estructuras
 typedef struct s_line
@@ -35,14 +28,16 @@ typedef struct s_line
 	uint32_t	color;
 }	t_line;
 
-typedef struct s_vars
+typedef struct s_draw_params
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-}	t_vars;
+	int			x;
+	int			y;
+	int			spacing;
+	int			offset_x;
+	int			offset_y;
+	int			is_boundary;
+	mlx_image_t	*img;
+}	t_draw_params;
 
 typedef struct s_map
 {
@@ -51,51 +46,33 @@ typedef struct s_map
 	int	height;
 }	t_map;
 
-// Nueva estructura para espaciado y offsets
-typedef struct s_params
-{
-	int	spacing;
-	int	offset_x;
-	int	offset_y;
-}	t_params;
-
-// Estructura para agrupar los parámetros comunes de las líneas
-typedef struct s_draw_params
-{
-	t_map		*map;
-	t_params	*params;
-}	t_draw_params;
-
-// Estructura auxiliar para manejar los cálculos de Bresenham
-typedef struct s_bresenham
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-}	t_bresenham;
-
-// Prototipos de funciones
-void	draw_line_basic(mlx_image_t *img, t_line *line, uint32_t color);
-void	isometric_projection(int *x, int *y, int z);
+// Prototipos de funciones para el manejo del mapa
 t_map	*read_fdf(const char *filename);
 void	free_map(t_map *map);
-int		*process_line(char *line, int *width);
-int		**resize_array(int **array, int old_size, int new_size);
-void	draw_line(mlx_image_t *img, t_line *line);
-void	draw_grid(mlx_image_t *img, t_map *map);
-void	init_bresenham(t_bresenham *b, t_line *line);
-int		is_pixel_in_bounds(int x, int y);
+// Prototipos de funciones principales
+void	draw_isometric_grid(mlx_image_t *img, t_map *map);
+// Prototipos de funciones auxiliares
+void	draw_horizontal_lines(mlx_image_t *img, int x, int y, int spacing, int z0, int z1, int is_boundary);
+void	draw_vertical_lines(mlx_image_t *img, int x, int y, int spacing, int z0, int z1, int is_boundary);
+
+// Prototipos de funciones main_utils
 void	handle_key(mlx_key_data_t keydata, void *param);
 int		init_mlx(mlx_t **mlx, mlx_image_t **img);
-t_map	*load_map(const char *filename, mlx_t *mlx);
-void	calculate_spacing_and_offsets(t_map *map, t_params *params);
-void	draw_grid_line(mlx_image_t *img, t_line *line, \
-	t_map *map, t_params *params);
-void	draw_grid_horizontal(mlx_image_t *img, \
-	t_draw_params *draw_params, int x, int y);
-void	draw_grid_vertical(mlx_image_t *img, \
-	t_draw_params *draw_params, int x, int y);
+// Prototipos de funciones mapa
+int		**allocate_z_values(int width, int height);
+int		process_line(char *line, t_map *map, int y, int width);
+int		read_lines_to_map(int fd, t_map *map, int width, int height);
+int		ft_count_words(const char *str);
+t_map	*init_map(int width, int height);
+int		count_lines_and_width(int fd, int *width, int *height);
+int		get_map_dimensions(const char *filename, int *width, int *height);
+
+// Prototipos de funciones adicionales
+void	draw_line(t_draw_params *params, t_line *line);
+void	setup_line(t_draw_params *params, t_line *line, int direction);
+void	apply_isometric_projection(int *x, int *y, int z);
+int		is_pixel_in_bounds(int x, int y);
+int		init_mlx(mlx_t **mlx, mlx_image_t **img);
+int		ft_count_words(const char *str);
 
 #endif
