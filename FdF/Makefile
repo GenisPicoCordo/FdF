@@ -25,14 +25,13 @@ MLX42BUILD := $(MLX42DIR)/build
 INCLUDES := -I includes -I $(MLX42DIR)/include -I $(LIBFTDIR) -I $(PRINTFDIR)
 
 SRC := src/main.c \
-			src/draw_utils.c \
-			src/projection.c \
+			src/main_utils.c \
+			src/map.c \
 			src/map_utils.c \
-			src/utils.c \
 			src/draw.c \
-			src/main_utils.c
-
-
+			src/draw_utils1.c \
+			src/draw_utils2.c
+			
 OBJS := $(SRC:.c=.o)
 
 LIBS := $(MLX42BUILD)/libmlx42.a $(LIBFT) $(PRINTF) -ldl -lglfw -pthread -lm
