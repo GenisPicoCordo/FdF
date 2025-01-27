@@ -24,19 +24,20 @@
 # include "MLX42/MLX42.h"
 # include "libft.h"
 
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 
-# define COLOUR_ONE 0xB8890Fff
-# define COLOUR_TWO 0x80960dff
-# define COLOUR_THREE 0x4b902dff
-# define COLOUR_FOUR 0x008846ff
-# define COLOUR_FIVE 0x00765dff
-# define COLOUR_SIX 0x006563ff
-# define COLOUR_SEVEN 0x005563ff
-# define COLOUR_EIGHT 0x004463ff
-# define COLOUR_NINE 0x003266ff
-# define COLOUR_TEN 0x02007cff
+# define COLOUR_ONE 0xFF5733ff
+# define COLOUR_TWO 0xFFBD33ff
+# define COLOUR_THREE 0xDBFF33ff
+# define COLOUR_FOUR 0x75FF33ff
+# define COLOUR_FIVE 0x33FF57ff
+# define COLOUR_SIX 0x33FFBDff
+# define COLOUR_SEVEN 0x33DBFFff
+# define COLOUR_EIGHT 0x3375FFff
+# define COLOUR_NINE 0x5733FFff
+# define COLOUR_TEN 0xBD33FFff
+# define DEFAULT_COLOR 0xFFFFFF
 
 # define PI 3.14159265359
 
@@ -70,6 +71,7 @@ typedef struct s_map
 	int			cols;
 	int			max;
 	int			min;
+	int			map_colour;
 	float		scaling_factor;
 	float		vertical_scale;
 	float		projection_angle_alpha;
@@ -119,7 +121,6 @@ int		get_maximum(int a, int b);
 int		get_minimum(int a, int b);
 
 void	calculate_projection(t_map *map, int i, int j);
-void	populate_columns(t_map *map, int row);
 void	set_2d_projection_mode(t_map *map);
 
 void	update_delta_values(t_delta *delta, t_fpoint start, t_fpoint end);
