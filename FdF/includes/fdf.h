@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
+# include <sys/stat.h>
 # include "MLX42/MLX42.h"
 # include "libft.h"
 
@@ -102,6 +103,7 @@ void	print_error_message(int error_code);
 int		validate_file_extension(char *file);
 int		count_lines_in_file(int fd);
 void	read_file_data(int fd, t_map *map);
+int		check_file_access(char *file);
 
 void	allocate_grid_memory(t_map *map);
 void	calculate_columns(t_map *map);
@@ -137,6 +139,7 @@ int		convert_to_int(const char *str);
 int		contains_comma(const char *str);
 int		extract_color_from_line(const char *str);
 void	process_input_data(char **argv, t_map *map);
+void	validate_and_open_file(char *file, t_map *map, int *fd);
 void	reset_image(t_fdf *fdf);
 void	adjust_scaling_factor(t_map *map);
 
