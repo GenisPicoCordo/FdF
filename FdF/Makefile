@@ -12,7 +12,7 @@
 
 NAME := fdf
 CC := cc
-CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g
+CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g 
 RM := rm -f
 
 # Directorios de librerías y includes
@@ -25,31 +25,32 @@ MLX42BUILD := $(MLX42DIR)/build
 INCLUDES := -I includes -I $(MLX42DIR)/include -I $(LIBFTDIR) -I $(PRINTFDIR)
 
 SRC := src/main.c \
-			src/main_utils.c \
-			src/map.c \
-			src/map_utils.c \
-			src/draw.c \
-			src/draw_utils1.c \
-			src/draw_utils2.c
+			src/render.c \
+			src/grid.c \
+			src/grid_utils1.c \
+			src/grid_utils2.c \
+			src/input_reader.c \
+			src/input_reader1.c \
+			src/graphics.c \
+			src/hooks.c \
+			src/error_handling.c \
+			src/utils.c \
+			src/draw_utils.c 
 			
 OBJS := $(SRC:.c=.o)
 
 LIBS := $(MLX42BUILD)/libmlx42.a $(LIBFT) $(PRINTF) -ldl -lglfw -pthread -lm
 
-# Variables para simplificar compilación
-MAKE_LIBFT := $(MAKE) -C $(LIBFTDIR)
-MAKE_PRINTF := $(MAKE) -C $(PRINTFDIR)
-
 all: makelibft makeprintf libmlx $(NAME)
 
 makelibft:
-	$(MAKE_LIBFT)
+	make -C $(LIBFTDIR)
 
 makeprintf:
-	$(MAKE_PRINTF)
+	make -C $(PRINTFDIR)
 
 libmlx:
-	@cmake $(MLX42DIR) -B $(MLX42BUILD) && make -C $(MLX42BUILD) -j4
+	@cmake -DDEBUG=1 $(MLX42DIR) -B $(MLX42BUILD) && make -C $(MLX42BUILD) -j4
 	@echo "MLX42 compilado."	
 
 %.o: %.c Makefile includes/fdf.h
@@ -63,14 +64,14 @@ $(NAME): $(OBJS)
 clean:
 	$(RM) -f $(OBJS)
 	$(RM) -r $(MLX42BUILD)
-	@$(MAKE_LIBFT) clean
-	@$(MAKE_PRINTF) clean
+	make clean -C $(LIBFTDIR)
+	make clean -C $(PRINTFDIR)
 	@echo "Objetos y compilados intermedios eliminados."
 
 fclean: clean
 	$(RM) $(NAME)
-	@$(MAKE_LIBFT) fclean
-	@$(MAKE_PRINTF) fclean
+	make fclean -C $(LIBFTDIR)
+	make fclean -C $(PRINTFDIR)
 	@echo "Ejecutables eliminados."
 
 re: fclean all
