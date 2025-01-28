@@ -142,5 +142,9 @@ void	process_input_data(char **argv, t_map *map);
 void	validate_and_open_file(char *file, t_map *map, int *fd);
 void	reset_image(t_fdf *fdf);
 void	adjust_scaling_factor(t_map *map);
+int		parse_tabs(t_map *map);
+int		parse_digits(t_map *map);
+int		parse_form(t_map *map);
+int		parse_map(t_map *map);
 
 #endif
