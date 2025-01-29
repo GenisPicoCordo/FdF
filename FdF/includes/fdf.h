@@ -94,45 +94,34 @@ typedef struct s_fdf
 	mlx_image_t	*img;
 }	t_fdf;
 
-// Function declarations
 void	initialize_map(t_map *map);
 void	release_memory(t_map *map);
 void	free_allocated_array(void **array);
 void	print_error_message(int error_code);
-
 int		validate_file_extension(char *file);
 int		count_lines_in_file(int fd);
 void	read_file_data(int fd, t_map *map);
 int		check_file_access(char *file);
-
 void	allocate_grid_memory(t_map *map);
 void	calculate_columns(t_map *map);
 void	populate_columns(t_map *map, int row);
 void	generate_matrix(t_map *map);
-
 void	prepare_projection_data(t_map *map);
 void	assign_color_to_point(t_map *map, int i, int j);
-
 int		create_window_and_render(t_map *map);
 void	handle_key_events(void *param);
 void	handle_rotation_keys(void *param);
-
 float	calculate_color_percentage(int max, int min, int current);
 int		get_color_based_on_percentage(double percentage);
 int		get_maximum(int a, int b);
 int		get_minimum(int a, int b);
-
 void	calculate_projection(t_map *map, int i, int j);
 void	set_2d_projection_mode(t_map *map);
-
 void	update_delta_values(t_delta *delta, t_fpoint start, t_fpoint end);
 void	draw_line_segment(t_fdf *fdf, t_fpoint start, t_fpoint end);
 void	connect_grid_points(t_fdf *fdf, int x, int y);
-
 void	render_grid(void *param);
 void	handle_all_hooks(void *param);
-
-// Libft-based utility functions
 int		is_valid_character(char c);
 char	**split_line(const char *str, char delimiter);
 int		convert_to_int(const char *str);
