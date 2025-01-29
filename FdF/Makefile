@@ -15,7 +15,6 @@ CC := cc
 CFLAGS := -Wall -Werror -Wextra -Wunreachable-code -Ofast -g 
 RM := rm -f
 
-# Directorios de librerías y includes
 LIBFTDIR := libft
 LIBFT := $(LIBFTDIR)/libft.a
 PRINTFDIR := libft/ft_printf
@@ -25,6 +24,7 @@ MLX42BUILD := $(MLX42DIR)/build
 INCLUDES := -I includes -I $(MLX42DIR)/include -I $(LIBFTDIR) -I $(PRINTFDIR)
 
 SRC := src/main.c \
+			src/main_utils.c \
 			src/render.c \
 			src/grid.c \
 			src/grid_utils1.c \
@@ -34,7 +34,7 @@ SRC := src/main.c \
 			src/graphics.c \
 			src/hooks.c \
 			src/error_handling.c \
-			src/utils.c \
+			src/colours.c \
 			src/draw_utils.c 
 			
 OBJS := $(SRC:.c=.o)
